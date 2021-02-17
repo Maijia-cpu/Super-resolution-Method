@@ -1,56 +1,66 @@
 clear 
 clc
 
-javaaddpath /gpfs/loomis/scratch60/fas/howard/ml2542/file/DeconvolutionLab_2.jar
-javaaddpath /gpfs/loomis/scratch60/fas/howard/ml2542/file/JTransforms-3.1-with-dependencies.jar
-% javaaddpath /Users/maijialiao/Documents/biophysics/data/result/test_on_exp_image/Formal_data/matlab_configuration/DL/DeconvolutionLab_2.jar
-% javaaddpath /Users/maijialiao/Documents/biophysics/data/result/test_on_exp_image/Formal_data/matlab_configuration/DL/JTransforms-3.1-with-dependencies.jar 
+javaaddpath /gpfs/loomis/project/howard/ml2542/configuration/DeconvolutionLab_2.jar
+javaaddpath /gpfs/loomis/project/howard/ml2542/configuration/JTransforms-3.1-with-dependencies.jar
 
-load branch_info.mat % contain zvalue FWHM angle sd_angle
+load branch_info.mat 
+% branch_info.mat contains: 
+% 1.zvalue (upper bound of distance relative to coverslip,unit: 9nm/pixel, usually zvalues varies from 2000-4000); 
+% 2. FWHM (measured FWHM from the dendrite image, unit:nm) 
+% 3. angle (some dendrites are tilted relative to horizontal, angle describes the relative angle between dendrites and horizontal) 
+% 4. sd_angle (standard deviation of meausred angle)
+
 angle0=angle0;
 sd_ag=sd_ag;
- %% main part
+
+%%% range of tuning parameters
   rng('shuffle');
 
-   a1=zvalue;%9nm/pixel
-   b1=zvalue+600;% 9nm/pixel
-   z=(b1-a1)*rand()+a1;  
+   % range of axial distance relative to coverslip
+   a1=1000;%9nm/pixel
+   b1=zvalue;% 9nm/pixel
+   z=(b1-a1)*rand()+a1; 
    
+   % range of refractive index
    a5=1.33;
-   b5=1.45;
+   b5=1.55;
    index=(b5-a5)*rand()+a5;
    
-   a6=1.2;% I used 1.6AU, but there might be uncertainty
-   b6=2.0;
+   % range of pinhole size
+   a6=1.6;% SDC pinhole size 1.6AU, but there might be uncertainty
+   b6=3;
    D_Airy=(b6-a6)*rand()+a6;
    
-  a2=((FWHM-200)/2-100)/9;
-  b2=((FWHM-200)/2+150)/9;
-  if a2>4
-  radius=(b2-a2)*rand()+a2;%9nm/pixel
-  else
-  a2=4;
-  radius=(b2-a2)*rand()+a2; 
-  end
-  
-  a7=500;% emission filter 500-550nm
-  b7=550;
-  lambda=(b7-a7)*rand()+a7;
-   
-  jsq=0;
+     % range of estimated radius
+   a2=((FWHM-200)/2-100)/9;
+   b2=((FWHM-200)/2+150)/9;
+     if a2>2
+      radius=(b2-a2)*rand()+a2;%9nm/pixel
+     else
+      a2=2;
+      radius=(b2-a2)*rand()+a2; 
+     end
+    
+    % range of emission wavelength
+    a7=500;% emission filter 500-550nm
+    b7=550;
+    lambda=(b7-a7)*rand()+a7;
 
-  num_exp=8;
-%% change to linear varying T  
-for j=1:1:600
-if j<200
-T(j)=(0.2-j*0.1/200)*0.25;  %%%tunable
-elseif (j>199)
-T(j)=(0.1-0.06/400*(j-200))*0.25;
-end
-end
+    num_exp=8;% number of image stacks usually in the range of 8-12
 
-[para_coeff,h]=sqrsum(z,radius,index,D_Airy,lambda,angle0,sd_ag);
+%%% T: "temperature" in MC simulations. Please determine according to simulation output value h  
+    for j=1:1:1000
+      if j<200
+      T(j)=(0.2-j*0.1/200)*0.25;  
+      elseif (j>199)
+      T(j)=(0.1-0.06/400*(j-200))*0.25;
+      end
+    end
 
+ %%% initial values preparations   
+            jsq=0;
+            [para_coeff,h]=sqrsum(z,radius,index,D_Airy,lambda,angle0,sd_ag);
             param(jsq+1,1)=radius;
             param(jsq+1,2)=z;
             param(jsq+1,3)=index;
@@ -66,13 +76,13 @@ end
             record(jsq+1,6)=h;           
             across(jsq+1,:)=para_coeff;%coeff
 
-  jsqn=0;
-  
-while jsqn<1500
-number=floor(5*rand);
-jsqn=jsqn+1;
-randnum(jsqn)=number;
-end
+ %%% random numbers used in MC simulations           
+     jsqn=0; 
+    while jsqn<1500
+    number=floor(5*rand);
+    jsqn=jsqn+1;
+    randnum(jsqn)=number;
+    end
 
    V=rand(1500,1);
    U=rand(1500,1);
@@ -85,6 +95,6 @@ end
    LA=rand(1500,1);
    LB=rand(1500,1);
 
-save('initial.mat')%change from -v7.3 to -v6, assume -v6 is faster since -v7.3 takes time in compression
+save('initial.mat')
 
 
