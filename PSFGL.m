@@ -22,7 +22,7 @@ params.M = 60;
 params.resLateral = 9e-9;
 params.resAxial = 9e-9;
 params.pZ = z*9*10^(-9);%9nm res
-size_z=(round(params.pZ/params.resAxial))*2+400*2+1;%  more space in addition to particle
+size_z=(round(params.pZ/params.resAxial))*2+500*2+1;%  more space in addition to particle
 params.size = [251 251 size_z];
 params.ns = index;
 params.ni0=1.33;
@@ -35,7 +35,7 @@ PSFi = MicroscPSF(params); %max psf independent of depth z when index=1.33 decre
 t = toc;
 [psfmax lmax]=max(squeeze(PSFi(126,126,:)));
 
-z_p=min([400,lmax])-1;
+z_p=min([500,lmax])-1;
 PSF_c=PSFi(:,:,(lmax-z_p):(lmax+z_p));
 
 paramsem.NA=1.2;
@@ -43,8 +43,8 @@ paramsem.lambda = 1e-9*lambda;
 paramsem.M = 60;
 paramsem.resLateral = 9e-9;
 paramsem.resAxial = 9e-9;
-paramsem.pZ = z*9*10^(-9);%10nm res
-size_zem=(round(paramsem.pZ/paramsem.resAxial))*2+400*2+1;
+paramsem.pZ = z*9*10^(-9);%9nm res
+size_zem=(round(paramsem.pZ/paramsem.resAxial))*2+500*2+1;
 paramsem.size = [251 251 size_zem];
 paramsem.ns = index;
 paramsem.ni0=1.33;
