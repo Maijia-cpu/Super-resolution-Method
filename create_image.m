@@ -1,3 +1,4 @@
+%% create cylinder cross section
 function I=create_image(param)
 
 [rowsInImage columnsInImage ] = meshgrid(1:param.Image_X, 1:param.Image_Z);
