@@ -3,8 +3,8 @@ function [sq_min]=sqr_min(imagecg_norm,bg_im,expz,exp_line)
   
     dnum=length(bg_im);
     image_norm=repmat(imagecg_norm,[1,1,dnum]);
-    bg_im_mat1=repmat(bg_im,[1,25]);
-    bg_im_mat2=repmat(bg_im_mat1,[1,1,8]);
+    bg_im_mat1=repmat(bg_im,[1,25]);% 25 is intensity profile length for each image layer
+    bg_im_mat2=repmat(bg_im_mat1,[1,1,8]);% 8 is number of image layers
     bg_im_mat=permute(bg_im_mat2,[2 3 1]);  
     imagenorm=image_norm+bg_im_mat;
 
