@@ -1,8 +1,8 @@
 function [para_coeff,sqminz]=sqrsum(z,radius,index,D_Airy,lambda,angle0,sd_ag)
 
-load sim.mat % angle included variable angle
-exp_line=exp_line';
-[max_ze,layere]=max(expz);%layere max of exp data
+load sim.mat % contain exp_line and expz
+exp_line=exp_line';% normalized intensity profiles of all image layers
+[max_ze,layere]=max(expz);%sum of intensity values for each image layer, the obtained sums for all image layers are normalized
 angle0=angle0;
 sd_ag=sd_ag;
 
