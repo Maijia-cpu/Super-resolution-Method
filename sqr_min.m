@@ -1,3 +1,4 @@
+%% obtained the least squared difference between experimental image and simulated image
 function [sq_min]=sqr_min(imagecg_norm,bg_im,expz,exp_line)
   
     dnum=length(bg_im);
