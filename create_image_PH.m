@@ -1,3 +1,4 @@
+%% create pinhole image
 function I=create_image_PH(param)
 
 rowsInImage=linspace(1,param.Image_X,param.Image_X);
