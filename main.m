@@ -3,16 +3,14 @@ clc
 
 javaaddpath /gpfs/loomis/scratch60/fas/howard/ml2542/file/DeconvolutionLab_2.jar
 javaaddpath /gpfs/loomis/scratch60/fas/howard/ml2542/file/JTransforms-3.1-with-dependencies.jar 
-% javaaddpath /home/ml2542/project/MATLAB/DeconvolutionLab_2.jar
-% javaaddpath /home/ml2542/project/MATLAB/JTransforms-3.1-with-dependencies.jar % %  lambda=530;
 
-load initial.mat
-num_exp=8;
+load initial.mat% generated from initial.m
+num_exp=8;% number of image stacks
 
 
-while jsq<600
+while jsq<1000
 
-num=randnum(jsq+1);% random generate 0 or 1 or 2; 0:zvalue 1:radius 2:index,3 Airy
+num=randnum(jsq+1);% random generate 0,1,2,3,4: 0:zvalue 1:radius 2:index,3: Airy,4:emission wavelength
 disp(num);
 if num==0
     z1=(b1-a1)*A(jsq+500)+a1;%9nm/pixel
