@@ -1,6 +1,6 @@
 function [para_coeff_m,sqminz_m]=scan(result,layere,resz,expz,exp_line,angle0,sd_ag)
     %% give delta x and delta z reasonable range
-    delta=160/9;%9nm/pixel 
+    delta=160/9;%9nm/pixel; 160 here is used step size in experiments
     num_exp=length(expz);
     delta_s=delta*(zeros(40,1)+1);
     rng('shuffle');
@@ -17,7 +17,7 @@ para_coeff=zeros(4,30);
 %  tic
 while j<30
     j=j+1;
-startz=resz-ceil((layere+0.7)*delta+1)+round(3.5*z_frac(300:339,j+1000)*delta);% (layere-1)*200+-200*1.5 
+startz=resz-ceil((layere+0.7)*delta+1)+round(3.5*z_frac(300:339,j+1000)*delta);% tuning range for the starting layer position, 0.7 and 3.5 are tunable based on experimental condition
 zlayer=round(linspaceNDim(startz,startz+(num_exp-1)*delta_s,num_exp));
 
 for i=1:40    
