@@ -7,7 +7,7 @@ javaaddpath /gpfs/loomis/project/howard/ml2542/configuration/JTransforms-3.1-wit
 
 load branch_info.mat 
 % branch_info.mat contains: 
-% 1.zvalue (upper bound of distance relative to coverslip,unit: 9nm/pixel, usually zvalues varies from 2000-4000); 
+% 1.zvalue (upper bound of distance relative to coverslip,unit: 9nm/pixel, usually zvalues varies from 2000-4000 (unit 9nm/pixel), the maximal of zvalue is ~40 micron meter); 
 % 2. FWHM (measured FWHM from the dendrite image, unit:nm) 
 % 3. angle (some dendrites are tilted relative to horizontal, angle describes the relative angle between dendrites and horizontal) 
 % 4. sd_angle (standard deviation of meausred angle)
