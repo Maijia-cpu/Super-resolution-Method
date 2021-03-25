@@ -30,7 +30,7 @@ sd_ag=sd_ag;
    
    % range of pinhole size
    a6=1.6;% SDC pinhole size 1.6AU, but there might be uncertainty
-   b6=3;
+   b6=2.5;
    D_Airy=(b6-a6)*rand()+a6;
    
      % range of estimated radius
