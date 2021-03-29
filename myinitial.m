@@ -39,7 +39,7 @@ sd_ag=sd_ag;
      if a2>2
       radius=(b2-a2)*rand()+a2;%9nm/pixel
      else
-      a2=2;
+      a2=3;
       radius=(b2-a2)*rand()+a2; 
      end
     
