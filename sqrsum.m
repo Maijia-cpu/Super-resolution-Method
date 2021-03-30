@@ -1,8 +1,9 @@
 function [para_coeff,sqminz]=sqrsum(z,radius,index,D_Airy,lambda,angle0,sd_ag)
 
 load sim.mat % contain exp_line and expz
-exp_line=exp_line';% normalized intensity profiles of all image layers
-[max_ze,layere]=max(expz);%sum of intensity values for each image layer, the obtained sums for all image layers are then normalized
+exp_line=exp_line';% intensity profiles of all image layers, correspond to I_exp^mj in method section. The intensity profile for each layer is normalized.
+%It is an array with dimension m*N (m is number of image layers,N is number of pixels across branch for each image layer)
+[max_ze,layere]=max(expz);%sum of intensity values for each image layer. It is an array with dimenstion 1*m (m is number of image layers). The obtained sum intensities for all image layers are then normalized
 angle0=angle0;
 sd_ag=sd_ag;
 
