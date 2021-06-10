@@ -36,7 +36,7 @@ sd_ag=sd_ag;
      % range of estimated radius
    a2=((FWHM-200)/2-100)/9;
    b2=((FWHM-200)/2+150)/9;
-     if a2>2
+     if a2>3
       radius=(b2-a2)*rand()+a2;%9nm/pixel
      else
       a2=3;
